@@ -1,10 +1,11 @@
 from tkinter import * 
 from colorama import Fore, Back, Style, init
-import platform, os
+import platform, os, random
 init(autoreset=True)
 def banner():
-    print(Back.BLUE + Fore.BLACK + """
-  \/________________                                                                                                             
+    banners = {
+        1 : f"""{Fore.CYAN}
+  \/________________                                                                                                              
  /     _____________)                                                                                                            
 /     /      _  _ |                                                                                                              
 \/\/\/     (O) (O)|                                                                                                              
@@ -18,7 +19,42 @@ __|_________\______/      /  ░▒█░░▒█░▒█▄▄▄█░▒█
  /     .       | \  |                                                                                                            
  \    /_\   .  |  \ |\                                                                                                           
  |`\       /_\ |   \| \                                                                                                          
-""")
+""",
+        2 : f"""{Fore.CYAN}                                  ___
+    .    _  .     _____________  /   \_______________________________________________
+    |\_|/__/|    /             \/                                                   /
+   / / \/ \  \  /    This is    \  (https://github.com/Unknow-Per/msfauto-ultra)   /
+  /__|O||O|__ \ \ MSFAuto-Ultra /   (by Unknow-Per)                _______________/
+ |/_ \_/\_/ _\ | \  ___________/__________________________________/
+ | | (____) | ||  |/
+ \/\___/\__/  // _/
+ (_/         ||
+  |          ||\ 
+   \        //_/ 
+    \______//
+   __|| __||
+  (____(____)
+ 
+""",
+        3 : f"""{Fore.CYAN}
+        .--'''''''''--.
+     .'      .---.      '.
+    /    .-----------.    \         ___________________
+   /        .-----.        \       /                   \ 
+   |       .-.   .-.       |      /  Ohh... Im again?   \ 
+   |      /   \ /   \      |     /   Ok,  THIS IS        \ 
+    \    | .-. | .-. |    /     /                        /
+     '-._| | | | | | |_.-'     /      MSFAuto           /
+         | '-' | '-' |         \             Ultra     /
+          \___/ \___/           \  ___________________/
+       _.-'  /   \  `-._         |/
+     .' _.--|     |--._ '.     __/
+     ' _...-|     |-..._ '
+            |     |
+            '.___.'
+"""
+    }
+    print(banners[random.randint(1, 3)])
 def check_os():
     if platform.uname()[0] != "Linux": print(Fore.RED + Style.BRIGHT + "[-] Your platform must be Kali Linux."), exit()
     else: print(Fore.GREEN + Style.BRIGHT + "[+] OS Accepted! Continue...")
