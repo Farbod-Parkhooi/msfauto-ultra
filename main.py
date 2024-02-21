@@ -4,3 +4,4 @@ from script import *
 # use it for fun!
 banner()
 check_os()
+get_info()

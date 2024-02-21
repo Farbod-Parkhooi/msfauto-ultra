@@ -94,5 +94,10 @@ def get_info():
     root.title("Get informations")
     root.resizable(False, False)
     root.mainloop()
-
-get_info()
+def read_info():
+    with open("config", "r") as read:
+        reader = read.readlines()
+        reader = "".join(reader)
+        reader = reader.split(",")
+    msfultra = msfauto_ultra(app_name=reader[0], ip=reader[1], port_one=reader[2], port_two=reader[3], payload=reader[4])
+    return msfultra
