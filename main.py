@@ -5,3 +5,4 @@ from script import *
 banner()
 check_os()
 get_info()
+mainapp()
