@@ -90,7 +90,7 @@ def create_output_folder():
     try: os.mkdir("Output")
     except FileExistsError: pass
 def check_os():
-    if platform.uname()[0] == "Linux": print(Fore.RED + Style.BRIGHT + "[-] Your platform must be Kali Linux."), exit()
+    if platform.uname()[0] != "Linux": print(Fore.RED + Style.BRIGHT + "[-] Your platform must be Kali Linux."), exit()
     else: print(Fore.GREEN + Style.BRIGHT + "[+] OS Accepted! Continue...")
     time.sleep(5)
     clear()
