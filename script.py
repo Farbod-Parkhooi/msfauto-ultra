@@ -130,9 +130,10 @@ def read_info():
     return msfultra
 def mainapp():
     root = Tk()
-    msfultra = read_info()
-    Button(root, text="Start msfconsole", width=50, height=5,  command=msfultra.start_msfconsole).pack()
-    Button(root, text="Start server", width=50, height=5, command=msfultra.craete_http_server).pack()
+    def console_dot_py(): os.system("python3 console.py")
+    def server_dot_py(): os.system("python3 server.py")
+    Button(root, text="Start msfconsole", width=50, height=5,  command=console_dot_py).pack()
+    Button(root, text="Start server", width=50, height=5, command=server_dot_py).pack()
     with open("config", "r") as read:
         reader = read.readlines()
         reader = "".join(reader)
