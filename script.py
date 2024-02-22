@@ -138,22 +138,4 @@ def mainapp():
     msfultra.create_malware()
     msg.showinfo("Malware created", "Malware is creted complete")
     time.sleep(5)
-    root = Tk()
-    Label(root, text=msfultra.return_links()).pack()
-    with open("config", "r") as read:
-        reader = read.readlines()
-        reader = "".join(reader)
-        reader = reader.split(",")
-    app_name = reader[0] 
-    ip = reader[1]
-    port_one = reader[2]
-    port_two = reader[3] 
-    payload = reader[4]
-#     Label(root, text=f"""Start commands.\n\n
-#  Your IP is: {ip}
-# Your first port is: {port_one}
-#       Your second port is: {port_two}""").pack()
     msfultra.start_together()
-    root.resizable(True, True)
-    root.title("msfauto ultra")
-    root.mainloop()
