@@ -122,7 +122,7 @@ def get_info():
             root.destroy()
             msg.showinfo("Completed", "Geting data is completed.")
     Button(root, command=save, text="submit", width=8, height=2).place(x=300, y=290)
-    root.geometry("500x350")
+    root.geometry("700x350")
     root.title("Get informations")
     root.resizable(True, True)
     root.mainloop()
