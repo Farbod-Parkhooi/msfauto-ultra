@@ -108,7 +108,7 @@ __|_________\______/      /  ░▒█░░▒█░▒█▄▄▄█░▒█
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▌▒▀▐▄█▄█▌▄░▀▒▒░░░░░░░░░░▒▒▌
 """
     }
-    print(banners[random.randint(1, 3)])
+    print(banners[random.randint(1, 5)])
 def clear(): os.system("clear")
 def create_output_folder():
     try: os.mkdir("Output")
