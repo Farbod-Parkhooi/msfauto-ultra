@@ -100,7 +100,7 @@ def check_os():
     clear()
 def get_info():
     root = Tk()
-    Label(root, text="your application's name:").place(x=15, y=47)
+    Label(root, text="your application's name:").place(x=15, y=27)
     Label(root, text="your ip:").place(x=15, y=97)
     Label(root, text="your first port:").place(x=15, y=147)
     Label(root, text="your srconf port:").place(x=15, y=197)
