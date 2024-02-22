@@ -138,4 +138,5 @@ def mainapp():
     msfultra.create_malware()
     msg.showinfo("Malware created", "Malware is creted complete")
     time.sleep(5)
+    msg.showinfo("Links", msfultra.return_links())
     msfultra.start_together()
