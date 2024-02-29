@@ -137,7 +137,7 @@ def get_info():
     payload.place(x=150, y=207)
     def save():
         with open("config", "w") as writer:
-            writer.write(f"{app_name.get()},{ip.get()},{port1.get()},{port2.get()},{payload.get()}")
+            writer.write(f"{app_name.get()},{ip.get()},{port1.get()},{port2},{payload.get()}")
             root.destroy()
             msg.showinfo("Completed", "Geting data is completed.")
     Button(root, command=save, text="submit", width=8, height=2).place(x=550, y=150)
