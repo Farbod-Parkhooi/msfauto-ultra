@@ -3,8 +3,6 @@
 This is a hacking tool for use metasploit easier! 
 <br />
 for use read the README.md
-<br/>
-You can use <a href="https://github.com/Unknow-per/msfauto/" target="_blank">old mode</a>
 </p>
 
 <hr>
