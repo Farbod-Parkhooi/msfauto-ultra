@@ -10,7 +10,7 @@ for use read the README.md
 <h1>How to download</h1>
 
 ```
-git clone https://github.com/Unknow-per/msfauto.git
+git clone https://github.com/Unknow-per/msfauto-ultra.git
 
 cd msfauto-ultra
 
